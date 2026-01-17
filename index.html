@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>السنة الأولى | تقويم الكلام واللغة</title>
+
+<style>
+:root {
+    --main: #5b6cff;
+    --secondary: #8f9bff;
+    --dark: #2c2f4a;
+    --light: #f4f6ff;
+}
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    font-family: "Segoe UI", Tahoma, sans-serif;
+    background: var(--light);
+    color: var(--dark);
+}
+
+/* HEADER */
+header {
+    background: linear-gradient(135deg, var(--main), var(--secondary));
+    color: white;
+    padding: 70px 20px;
+    text-align: center;
+    animation: fadeDown 1s ease;
+}
+
+header h1 { margin: 0; font-size: 38px; }
+header p { margin-top: 10px; font-size: 18px; opacity: 0.9; }
+
+/* SECTION */
+.section { max-width: 1100px; margin: auto; padding: 70px 20px; }
+.section h2 { font-size: 28px; margin-bottom: 20px; }
+
+/* SEARCH */
+.search-box { margin-bottom: 30px; }
+.search-box input {
+    width: 100%;
+    padding: 16px;
+    border-radius: 16px;
+    border: 2px solid var(--main);
+    font-size: 17px;
+    outline: none;
+}
+
+/* MATERIAL CARDS */
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 25px;
+}
+
+.card {
+    background: white;
+    padding: 35px 20px;
+    border-radius: 22px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.1);
+    transition: 0.5s;
+    position: relative;
+    overflow: hidden;
+}
+
+.card::after {
+    content: "اضغط لعرض المحاضرات";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, var(--main), var(--secondary));
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: 0.5s;
+}
+
+.card:hover::after { opacity: 1; }
+.card:hover { transform: translateY(-12px) scale(1.03); }
+
+/* LECTURES */
+.lectures {
+    margin-top: 40px;
+    background: white;
+    border-radius: 25px;
+    padding: 30px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+    display: none;
+    animation: slideUp 0.6s ease;
+}
+
+.lectures h3 { margin-top: 0; color: var(--main); }
+
+.lectures li {
+    background: var(--light);
+    margin-bottom: 10px;
+    padding: 15px;
+    border-radius: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: 0.3s;
+}
+
+.lectures li:hover { background: #e8ebff; }
+
+.lectures li a { text-decoration: none; font-weight: bold; color: var(--dark); }
+
+/* DOWNLOAD BUTTON */
+.download-btn {
+    color: white;
+    background: var(--main);
+    padding: 6px 12px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+.download-btn:hover { background: var(--secondary); }
+
+/* NEWS */
+.news {
+    background: white;
+    border-radius: 25px;
+    padding: 30px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+}
+
+.news p {
+    font-size: 16px;
+    padding: 12px;
+    border-right: 5px solid var(--main);
+    background: var(--light);
+    border-radius: 10px;
+    margin-bottom: 12px;
+}
+
+/* FOOTER */
+footer {
+    background: #1f223d;
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+/* ANIMATIONS */
+@keyframes fadeDown { from {opacity:0; transform:translateY(-40px);} to {opacity:1; transform:translateY(0);} }
+@keyframes slideUp { from {opacity:0; transform:translateY(40px);} to {opacity:1; transform:translateY(0);} }
+</style>
+</head>
+
+<body>
+    <div id="loginBox" style="
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+height:100vh;
+background:linear-gradient(135deg,#5b6cff,#8f9bff);
+color:white;
+text-align:center;
+">
+    <div class="bubble" style="--i:0;"></div>
+    <div class="bubble" style="--i:1;"></div>
+    <div class="bubble" style="--i:2;"></div>
+    <div class="bubble" style="--i:3;"></div>
+    <div class="bubble" style="--i:4;"></div>
+    <h2>🔒 دخول موقع طلاب السنة الأولى</h2>
+    <p>الرجاء إدخال كلمة السر</p>
+
+    <input type="password" id="passwordInput" placeholder="كلمة السر"
+    style="
+    padding:12px 18px;
+    font-size:16px;
+    border-radius:10px;
+    border:none;
+    outline:none;
+    margin-top:10px;
+    ">
+
+    <button id="loginBtn"
+    style="
+    margin-top:20px;
+    padding:12px 30px;
+    font-size:16px;
+    background:#1f223d;
+    color:white;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+    ">
+    دخول
+    </button>
+
+    <p id="errorMsg" style="color:#ffd6d6; margin-top:15px; display:none;">
+        ❌ كلمة السر غير صحيحة
+    </p>
+</div>
+ <div id="siteContent" style="display:none;">
+    <header>
+    <h1>قسم تقويم الكلام واللغة</h1>
+    <p>السنة الأولى – كلية العلوم الصحية | جامعة دمشق</p>
+</header>
+
+<section class="section">
+    <h2>📚 مواد السنة الأولى</h2>
+
+    <!-- SEARCH -->
+    <div class="search-box">
+        <input type="text" id="searchMaterials" placeholder="🔍 ابحث عن اسم المادة...">
+    </div>
+
+    <div class="cards" id="materials">
+        <div class="card" onclick="showLectures('linguistics')">علم اللغة</div>
+        <div class="card" onclick="showLectures('anatomy')">تشريح</div>
+        <div class="card" onclick="showLectures('chemTheory')">كيميا نظري</div>
+        <div class="card" onclick="showLectures('chemPractical')">كيمياء عملي</div>
+        <div class="card" onclick="showLectures('physTheory')">فيزياء نظري</div>
+        <div class="card" onclick="showLectures('physPractical')">فيزياء عملي</div>
+        <div class="card" onclick="showLectures('physioTheory')">فيزيولوجيا نظري</div>
+        <div class="card" onclick="showLectures('physioPractical')">فيزيولوجيا عملي</div>
+        <div class="card" onclick="showLectures('math')">رياضيات</div>
+        <div class="card" onclick="showLectures('arabic1')">عربي ١</div>
+        <div class="card" onclick="showLectures('english1')">إنكليزي ١</div>
+    </div>
+
+    <!-- LECTURES -->
+    <div class="lectures" id="lecturesBox">
+        <h3 id="lectureTitle"></h3>
+        <ul id="lectureList"></ul>
+    </div>
+
+</section>
+
+<section class="section">
+    <h2>📰 آخر الأخبار</h2>
+    <div class="news">
+        <p>🔔 امتحان علم اللغة يوم الاثنين</p>
+        <p>🔔 تسليم تقرير التشريح الأسبوع القادم</p>
+        <p>🔔 محاضرة إضافية لكيميا عملي يوم الخميس</p>
+        <p>🔔 اختبار عربي ١ يوم الثلاثاء</p>
+        <p>🔔 محاضرة إنكليزي ١ إضافية يوم الأربعاء</p>
+        <p>🔔 محاضرة فيزياء عملي يوم الجمعة</p>
+    </div>
+</section>
+
+ <footer>
+    <p>موقع خاص بطلاب السنة الأولى 🤍</p>
+    <p style="font-size:14px; opacity:0.7;">تم التصميم بواسطة: عمر زينو 🤍 </p>
+</footer>
+
+<script>
+/* SEARCH MATERIALS */
+const searchInput = document.getElementById("searchMaterials");
+const cards = document.querySelectorAll(".card");
+
+searchInput.addEventListener("keyup", () => {
+    const value = searchInput.value.toLowerCase();
+    cards.forEach(card => {
+        card.style.display = card.textContent.toLowerCase().includes(value)
+            ? "block"
+            : "none";
+    });
+});
+
+/* LECTURES DATA */
+const lecturesData = {
+    linguistics: { title: "محاضرات علم اللغة", list: [
+        {name:"مدخل إلى علم اللغة", file:"files/linguistics/lecture1.pdf"},
+        {name:"اللغة والكلام", file:"files/linguistics/lecture2.pdf"}
+    ] },
+    anatomy: { title: "محاضرات التشريح", list: [
+        {name:"الجهاز العصبي", file:"files/anatomy/lecture1.pdf"}
+    ] },
+    chemTheory: { title: "محاضرات كيميا نظري", list: [
+        {name:"الكيمياء الأساسية", file:"files/chemTheory/lecture1.pdf"}
+    ] },
+    chemPractical: { title: "محاضرات كيميا عملي", list: [
+        {name:"تجارب الكيمياء", file:"files/chemPractical/lecture1.pdf"}
+    ] },
+    physTheory: { title: "محاضرات فيزياء نظري", list: [
+        {name:"الميكانيكا", file:"files/physTheory/lecture1.pdf"}
+    ] },
+    physPractical: { title: "محاضرات فيزياء عملي", list: [
+        {name:"تجارب فيزياء", file:"files/physPractical/lecture1.pdf"}
+    ] },
+    physioTheory: { title: "محاضرات فيزيولوجيا نظري", list: [
+        {name:"نظام الدورة الدموية", file:"files/physioTheory/lecture1.pdf"}
+    ] },
+    physioPractical: { title: "محاضرات فيزيولوجيا عملي", list: [
+        {name:"تجارب فسيولوجية", file:"files/physioPractical/lecture1.pdf"}
+    ] },
+    math: { title: "محاضرات رياضيات", list: [
+        {name:"الجبر", file:"files/math/lecture1.pdf"}
+    ] },
+    arabic1: { title: "محاضرات عربي ١", list: [
+        {name:"النحو", file:"files/arabic1/lecture1.pdf"}
+    ] },
+    english1: { title: "محاضرات إنكليزي ١", list: [
+        {name:"Grammar Basics", file:"files/english1/lecture1.pdf"}
+    ] }
+};
+
+/* SHOW LECTURES */
+function showLectures(subject) {
+    const box = document.getElementById("lecturesBox");
+    const title = document.getElementById("lectureTitle");
+    const list = document.getElementById("lectureList");
+
+    title.textContent = lecturesData[subject].title;
+    list.innerHTML = "";
+
+    lecturesData[subject].list.forEach(item => {
+        const li = document.createElement("li");
+
+        const link = document.createElement("a");
+        link.href = item.file;
+        link.textContent = "📄 " + item.name;
+        link.target = "_blank";
+        link.style.textDecoration = "none";
+        link.style.fontWeight = "bold";
+
+        const downloadBtn = document.createElement("a");
+        downloadBtn.href = item.file;
+        downloadBtn.textContent = "⬇️ تحميل";
+        downloadBtn.setAttribute("download", "");
+        downloadBtn.className = "download-btn";
+
+        li.appendChild(link);
+        li.appendChild(downloadBtn);
+        list.appendChild(li);
+    });
+
+    box.style.display = "block";
+    box.scrollIntoView({ behavior: "smooth" });
+}
+</script>
+
+</body>
+ <script>
+const PASSWORD = "SLP-1st2026";
+
+const loginBtn = document.getElementById("loginBtn");
+const passwordInput = document.getElementById("passwordInput");
+const errorMsg = document.getElementById("errorMsg");
+const loginBox = document.getElementById("loginBox");
+const siteContent = document.getElementById("siteContent");
+
+loginBtn.addEventListener("click", () => {
+    if (passwordInput.value === PASSWORD) {
+        loginBox.style.display = "none";
+        siteContent.style.display = "block";
+    } else {
+        errorMsg.style.display = "block";
+        passwordInput.value = "";
+    }
+});
+</script>
+</html>
